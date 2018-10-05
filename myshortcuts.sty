@@ -1,0 +1,92 @@
+%-------Packages---------
+\RequirePackage{amssymb,amsfonts}
+
+%-------Custom Packages--------
+\RequirePackage{latexsym}
+\RequirePackage{amsmath}
+\RequirePackage{tikz}
+\RequirePackage{float}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=1.13}
+\RequirePackage{amsthm}
+\RequirePackage{graphicx}
+\RequirePackage[nameinlink]{cleveref}
+
+%--------Theorem Environments--------
+\newtheorem{thm}{Theorem}%[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{conj}[thm]{Conjecture}
+\newtheorem{quest}[thm]{Question}
+\newtheorem{open}[thm]{Open}
+
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\newtheorem*{defn*}{Definition}
+\newtheorem*{ex*}{Example}
+\newtheorem{ex}[thm]{Example}
+
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+
+\newenvironment{sproof}{%
+  \renewcommand{\proofname}{Sketch of Proof}\proof}{\endproof}
+
+
+%-------Tikz Tree Graph Settings------
+
+\tikzset{
+  treenode/.style = {rectangle,align=center,draw,rounded corners},
+  env/.style      = {treenode, font=\large},
+  dummy/.style    = {rectangle, inner sep = 0},
+  bdummy/.style    = {circle, inner sep = 0, outer sep = -0.5pt},
+  tgraph/.style   = {circle, inner sep = 0pt,left=0.2in,draw,fill=black,outer sep = -0.5pt},
+  core/.style     = {circle, inner sep = 0pt, outer sep = -0.5pt, fill=black,draw},
+  corelabel/.style = {dummy,right = 0.07in}
+}
+
+%-------Tikz Plot Points Settings------
+\tikzset{
+  jumpdot/.style={mark=*,solid},
+  excl/.append style={jumpdot,fill=white},
+  incl/.append style={jumpdot,fill=black},
+}
+
+
+%-------Custom Commands--------
+
+\newcommand{\bimplies}{\Longleftarrow}
+\newcommand{\B}{\mathcal{B}}
+\newcommand{\A}{\mathbb{A}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Q}{\mathbb{Q}}
+\renewcommand{\P}{\mathcal{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\ind}{\mathds{1}}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\abs}[1]{\lvert #1 \rvert}
+\newcommand{\inner}[2]{\langle #1, #2 \rangle}
+\newcommand{\Folner}{F{\o}lner }
+\newcommand{\norm}[1]{\|#1\|}
+\newcommand{\spec}{\text{spec}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\gen}[1]{\langle #1 \rangle}
+\newcommand{\absp}[1]{\lvert #1 \rvert_p}
+\renewcommand{\k}{\Bbbk}
+\newcommand{\dist}{\text{dist}}
+\newcommand{\M}{\mathcal{M}}
+\renewcommand{\H}{\mathbb{H}}
+\renewcommand{\d}{\text{d}}
+\newcommand{\cross}{\times}
+\newcommand{\stab}[2]{\text{Stab}_{#1}(#2)}
+\newcommand{\pstab}[2]{\text{PStab}_{#1}(#2)}
+\newcommand{\comp}{{Comp}}
+\newcommand{\latex}{\LaTeX\space}
+\newcommand{\iso}{\cong}
+\newcommand{\tri}{$\triangle$}
+\newcommand{\ang}{$\angle$}
