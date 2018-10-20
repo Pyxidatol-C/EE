@@ -8,6 +8,7 @@
 \usepackage{titlesec}
 \usepackage{epigraph}
 \usepackage{stmaryrd}
+\usepackage{setspace}
 \usepackage[american]{babel}
 \usepackage{csquotes}
 \usepackage{tikz}
@@ -35,23 +36,19 @@
 %% Preamble
 \title{
     % Title of EE
-    \Huge Mathematics Extended Essay\\
+    { \textbf{Mathematics Extended Essay}}\\
     \bigskip
     % Subtitle: Research question
-    \Large How can we use generating functions to solve linear recurrence relations with constant coefficients?
+    {\Large How can we use generating functions to solve\\  linear recurrence relations with constant coefficients?}
 }
 % Make anonymous
-\author{}
+\author{\textit{3540 words}}
 % Month and year of graduation
-\date{
-    May 2019\\
-    \vspace{12.5cm}
-    \small
-    3756 words
-}
-
+\date{July 2019}
 
 \begin{document}
+\setstretch{1.20}
+\allowdisplaybreaks
 \thispagestyle{empty}
 \pagenumbering{gobble}
 \maketitle
@@ -74,7 +71,7 @@ Solving linear recurrence relations with constant coefficients is one of the mos
 \tableofcontents
 
 \chapter{Introductory Ideas}\label{ch:intro}
-\epigraph{A generating function is a clothesline on which we hang up a sequence of numbers for display.}{Herbert Wilf}
+\epigraph{A generating function is a clothesline on which we hang up a sequence of numbers for display.}{Herbert Wilf \autocite*[1]{wilf}}
 % Research question stated
 % Hypothesis
 % Explanation of topic choice: why interesting? connection to passion?
@@ -83,7 +80,7 @@ Solving linear recurrence relations with constant coefficients is one of the mos
 % Brief description of how research question will be answered
 % A description of the conclusion: q answered? hypotheses?
 
-When we encounter a complicated problem, we often find it useful to break it down into two parts: the trivial cases, and how we can derive a solution from the solutions of sub-problems. Consider this problem: short syllables are 1 unit of duration, and long syllables 2; how many different patterns of short and long syllables of $n$ units in total are there?
+When we encounter a complicated problem, we often find it useful to break it down into two parts: the trivial cases, and how we can derive a solution from the solutions of sub-problems. Consider this problem: short syllables are 1 unit of duration, and long syllables 2; how many different cadences, i.e., patterns of short and long syllables that are $n$ units in length can we construct?
 
 \begin{figure}[h]
     \centering
@@ -91,29 +88,41 @@ When we encounter a complicated problem, we often find it useful to break it dow
     \filldraw[color=blue!60, fill=blue!5, very thick] (0, 0) rectangle (1, 1);
     \filldraw[color=red!60, fill=red!5, very thick] (2, 0) rectangle (4, 1);
     \end{tikzpicture}
-    \caption{Short and long syllables, figure made with tikz}
+    \caption{Short and long syllables}
     \label{fig:short_long}
 \end{figure}
 
-We start by considering the trivial cases. When $n = 0$, there is exactly 1 pattern: not using any syllables. When $n = 1$, only 1 short syllable can fit, so there is only 1 pattern as well.
+Let $F_n$ denote the number of patterns of length $n$. We start by considering the trivial cases. When $n = 0$, there is exactly 1 pattern -- not using any syllables, so $F_0 = 1$. When $n = 1$, only 1 short syllable can fit, so there is only 1 pattern as well and $F_1 = 1$.
 
-We then consider the relation between the number of patterns of $n$ units long and the number of patterns of $n - 1, n - 2, ...$ units long.
+We then consider the relation between $F_n$ and $F_{n - 1}, F_{n - 2}$, etc. Firstly, if the pattern is $n$ units long and ends with a short syllable (so $n \geq 1$), the remaining $n - 1$ units can be constructed in $F_{n - 1}$ ways.
 
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
-    \filldraw[color=blue!60, fill=blue!5, very thick] (4, 1.5) rectangle (5, 2.5);
-    \node at (1.5, 2) {$\overbrace{\cdots}^{n - 1\text{ units}}$};
-    \filldraw[color=red!60, fill=red!5, very thick] (3, 0) rectangle (5, 1);
-    \node at (1.5, 0.5) {$\overbrace{\cdots}^{n - 2\text{ units}}$};
+    \filldraw[color=blue!60, fill=blue!5, very thick] (4, 0) rectangle (5, 1);
+    \filldraw[fill=gray!5, thick, dotted] (0, 0) rectangle (4, 1);
+    \draw [brace, decoration={raise=0.5ex}] (0, 0) -- (4, 0) node [position label, pos=0.5] {$n - 1$ units};
     \end{tikzpicture}
-    \caption{Number of patterns of $n$ units long, figure made with tikz}
-    \label{fig:rec}
+    \caption{Patterns of length $n$ ending with a short syllable}
+    \label{fig:end_with_short}
 \end{figure}
 
-When counting the patterns of $n$ units long, we notice that it either ends with a short syllable or a long syllable. These correspond to patterns of $n - 1$ and $n - 2$ units long, respectively.
+Similarly, if the pattern of length $n$ ends with a long syllable (so $n \geq 2$), the remaining $n - 2$ units can be constructed in $F_{n - 2}$ ways.
 
-If we denote with $f_n$ the number of patterns of $n + 1$ units long, with $f_0 = 0$, we have:
+\begin{figure}[h]
+    \centering
+    \begin{tikzpicture}
+    \filldraw[color=red!60, fill=red!5, very thick] (3, 0) rectangle (5, 1);
+    \filldraw[fill=gray!5, thick, dotted] (0, 0) rectangle (3, 1);
+    \draw [brace, decoration={raise=0.5ex}] (0, 0) -- (3, 0) node [position label, pos=0.5] {$n - 2$ units};
+    \end{tikzpicture}
+    \caption{Patterns of length $n$ units ending with a long syllable}
+    \label{fig:end_with_long}
+\end{figure}
+
+Since a pattern of length $n$ where $n \geq 2$ must end either with a short syllable or with a long syllable, we come to the conclusion that $F_n = F_{n - 1} + F_{n - 2}$.
+
+In modern usage, instead of $F_0 = 1$ and $F_1 = 1$, we often say $F_1 = 1$ and $F_2 = 1$ to include $F_0 = 0$, which is consistent with $F_2 = F_0 + F_1$ \autocite[293]{gkp}. Combining both parts, we have:
 \[\begin{cases}
 F_0 = 0, F_1 = 1\\
 F_n = F_{n - 1} + F_{n - 2}, n \geq 2.
@@ -121,15 +130,19 @@ F_n = F_{n - 1} + F_{n - 2}, n \geq 2.
 
 These are the Fibonacci numbers defined in a recursive manner. The recurrence relation, however, only gives us local, indirect information. It is easy to compute $F_2$ from $F_0$ and $F_1$, but the calculation of $F_n$ for arbitrary (especially for large) $n$ would be tedious. We are then interested in finding a closed-form expression for $F_n$. 
 
-The discrete nature of $\{F_n\}$ as a sequence is to an extent an obstacle. Instead, if we were to encode $\{F_n\}$ as a power series $F_0 + F_1 X + F_2 X^2 + \cdots$, many manipulations become available. This is called the generating function of $\{F_n\}$, which we denote with $f \longleftrightarrow \{F_n\}$. It will be shown later that, after some arithmetic, we can deduce that $f = \dfrac{X}{1 - X - X^2}$. It is then possible to use the Maclaurin series to obtain $F_n = -\frac{1}{\sqrt{5}} \left(\frac{1 - \sqrt{5}}{2}\right)^n + \frac{1}{\sqrt{5}} \left(\frac{1 + \sqrt{5}}{2}\right)^n$.
+The discrete nature of the sequence $\{F_n\}$ is to an extent an obstacle. Instead, if we were to encode $\{F_n\}$ as a power series $F_0 + F_1 X + F_2 X^2 + \cdots$, many manipulations become available. This is called the generating function of $\{F_n\}$, which we denote with $f \longleftrightarrow \{F_n\}$. It will be shown later that, after some arithmetic, we can deduce $f = \dfrac{X}{1 - X - X^2}$. It is then possible to use the Maclaurin series to obtain $F_n = -\frac{1}{\sqrt{5}} \left(\frac{1 - \sqrt{5}}{2}\right)^n + \frac{1}{\sqrt{5}} \left(\frac{1 + \sqrt{5}}{2}\right)^n$.
 
 I initially encountered this kind of problem in computer science, when I attempted to analyse the efficiency of a recursive algorithm. Indeed, recurrence relations appear in maths, computer science, and many other fields since they find use in problems from enumeration of structures to analysis of recursive algorithms. I then found that the discrete mathematics option of the IB HL maths textbook includes a treatment of second-order linear recurrence relations with constant coefficients. When it comes to non-homogeneous recurrence relations, however, a particular solution must be guessed. I wondered if there was any method to solve such recurrence relations without needing to make guesses, and I discovered generating functions as a powerful tool to solve linear recurrence relations.
 
-This essay will focus on how generating functions can be used to solve linear recurrence relations with constant coefficients. At first, I wanted to focus more on the diverse applications of generating functions in combinatorics and probabilities: probability generating functions, for example. Nonetheless, a survey of literature revealed that most authors disregard the problem of convergence of the power series, and proceeded to add, multiply, and derive generating functions without knowing whether they are defined --- such is the case in the statistics and probability option in IB HL maths. Instead, a theory of formal power series is often known or presumed. As an inquirer, I became increasingly interested by this algebraic aspect of generating functions that asserts the validity of many operations on analytic functions without the concerns of convergence.
+This essay will focus on how generating functions can be used to solve linear recurrence relations with constant coefficients. At first, I wanted to focus more on the diverse applications of generating functions in combinatorics and probabilities: probability generating functions, for example. Nonetheless, a survey of literature revealed that most authors disregard the problem of convergence of the power series, and proceeded to add, multiply, and derive generating functions without knowing whether they are defined. Instead, a theory of formal power series is often known or presumed. As an inquirer, I became increasingly interested by this algebraic aspect of generating functions that asserts the validity of many operations on analytic functions without the concerns of convergence.
 
 The essay is organised as follows. Firstly, we define generating functions as formal power series in order to state the formulations of basic arithmetic operations, shifting, and derivation. In the process, we prove the validity of many properties which allows the derivation of commonly used generating functions. Then, we focus on solving linear recurrence relations with generating functions. We start by stating a theorem about solutions to homogeneous recurrence relations, which is then compared with the approach using generating functions to reveal many similarities. The connection between generating functions and recurrence relations is further shown when we consider non-homogeneous recurrence relations. We conclude with discussions on the form and name of generating functions.
 
-\chapter{Generating Functions}\label{ch:gf}
+
+
+
+
+{\let\clearpage\relax\chapter{Generating Functions}}\label{ch:gf}
 \section{Terms and definitions}
 \begin{defn}\label{def:gf-def}
 A \textbf{generating function} (or \textbf{formal power series}) is an expression of the form 
@@ -383,7 +396,12 @@ We then find $(\frac{1}{f^c})'$ with the product rule, remembering from remark~\
     &(f^c)' \cdot \frac{1}{f^c} + f^c \cdot \left(\frac{1}{f^c}\right)' = 0\\
     &\left(\frac{1}{f^c}\right)'= -\frac{c f^{c - 1} \cdot f'}{f^c} \cdot \frac{1}{f^c} = -\frac{c}{f^{c + 1}} \cdot f'.
 \end{align*}
-The quotient rule can be proved in the same manner.
+
+The quotient rule $\left(\dfrac{f}{g}\right)' = \dfrac{f' g - f g'}{g^2}$ can be proved in the same manner. From $\frac{f}{g} \cdot g = f$,
+\begin{align*}
+    &\left(\frac{f}{g}\right)' + \frac{f}{g} \times g' = f'\\
+    &\left(\frac{f}{g}\right)' = \frac{f' - \frac{f g'}{g}}{g} = \frac{f' g - f g'}{g^2}
+\end{align*}
 \end{proof}
 
 \begin{thm}\label{thm:gf-maclaurin}
@@ -419,7 +437,7 @@ In particular, when $\lambda = 1$, $a_n = \binom{c + n - 1}{n}$.
 
 \section{Summary}\label{sec:gf-summary}
 We shall finish this chapter by summing up our findings:
-\begin{table}[h!]
+\begin{table}[h]
     \centering
     \begin{tabular}{c l l | c}
     \multicolumn{2}{c}{\textbf{Generating function}} & \multicolumn{1}{c}{\textbf{Sequence}} & \textbf{Notes}\\\hline
@@ -471,8 +489,10 @@ Now that we have rigorously proven that many known properties of functions (e.g.
 
 
 
-\chapter{Solving Recurrence Relations}\label{ch:recurrence}
+{\let\clearpage\relax\chapter{Solving Recurrence Relations}}\label{ch:recurrence}
 We will now move on to explore one of the most important applications of generating functions: solving recurrence relations. In particular, we will focus on a special class of recurrence relations --- that of linear recurrence relations with constant coefficients.
+
+\clearpage
 
 \section{Linear homogeneous recurrence relations}
 \subsection{Overview}
@@ -614,11 +634,11 @@ Every generating function of the form $\dfrac{P}{Q}$ corresponds to a sequence s
 \begin{proof}
 We have shown above how to identify the sequence from its generating function. Conversely, to find the generating function $f$ of a sequence $\{a_n\}$, we propose the following:
 
-\begin{enumerate}\vspace{-0.1cm}
-    \item Identify the recurrence relation $a_n = c_{k - 1} a_{n - 1} + c_{k - 2} a_{n - 2} + \cdots + c_0 a_{n - k}, \quad n \geq k$.\vspace{-0.125cm}
-    \item Multiply both sides of the recurrence relation by $X^n$, and sum over all $n \geq k$.\vspace{-0.125cm}
-    \item The left hand side becomes $\sum_{n = k}^{\infty} a_n X^n = f - a_0 - a_1 X - \cdots - a_{k - 1} X^{k - 1}$. The right hand side becomes the sum of $\sum_{n=k}^\infty c_{k - i} a_{n - i} X^n = c_{k - i} X^i \sum_{n = k}^\infty a_{n - i} X^{n - i}$ which equals $c_{k - i} X^i \sum_{n = k - i}^\infty a_n X^n = c_{k - i} X^i (f - \sum_{j = 0}^{k - i - 1} a_{j} X^j )$ for $i$ ranging from $1$ to $k$. \vspace{-0.125cm}
-    \item Hence obtain $f$ as a ratio of two polynomials, $\frac{P}{Q}$.\vspace{-0.125cm}
+\begin{enumerate}
+    \item Identify the recurrence relation $a_n = c_{k - 1} a_{n - 1} + c_{k - 2} a_{n - 2} + \cdots + c_0 a_{n - k}, \quad n \geq k$.
+    \item Multiply both sides of the recurrence relation by $X^n$, and sum over all $n \geq k$.
+    \item The left hand side becomes $\sum_{n = k}^{\infty} a_n X^n = f - a_0 - a_1 X - \cdots - a_{k - 1} X^{k - 1}$. The right hand side becomes the sum of $\sum_{n=k}^\infty c_{k - i} a_{n - i} X^n = c_{k - i} X^i \sum_{n = k}^\infty a_{n - i} X^{n - i}$ which equals $c_{k - i} X^i \sum_{n = k - i}^\infty a_n X^n = c_{k - i} X^i (f - \sum_{j = 0}^{k - i - 1} a_{j} X^j )$ for $i$ ranging from $1$ to $k$. 
+    \item Hence obtain $f$ as a ratio of two polynomials, $\frac{P}{Q}$.
 \end{enumerate}
 
 This procedure is functional because $f$ allows us to manipulate $\{a_n\}$ in many ways.
@@ -702,14 +722,18 @@ s_n = 4s_{n - 1} - 6s_{n - 2} + 4 s_{n - 3} - s_{n - 4}, \quad n \geq 4.
 
 At last, we shall finish by considering what kind of non-homogeneous recurrence relations generating functions enable us to solve.
 \begin{thm}
-Let $a_n = c_{k - 1}a_{n - 1} + c_{k - 2}a_{n - 2} + \cdots + c_0 a_{n - k} + g_n$ for $n \geq k$. The generating function of $\{a_n\}$ takes the form $\frac{P}{Q}$ if and only if \[g_n = \sum_{j = 1}^{m} {\alpha_j}^n P_j\]
+Let $a_n = c_{k - 1}a_{n - 1} + c_{k - 2}a_{n - 2} + \cdots + c_0 a_{n - k} + g_n$ for $n \geq k$. The generating function of $\{a_n\}$ takes the form $\dfrac{P}{Q}$ if and only if \[g_n = \sum_{j = 1}^{m} {\alpha_j}^n P_j\]
 where $m \in \N$ and $P_j$ is a polynomial in $n$.
 \end{thm}
 \begin{proof}
 It suffices to find the generating function of $g_n$ by combining manipulations. Specifically, each term $\{n^k\}$ with $k \in \N$ in $\{P_j\}$ is generated by $X\left(\overbrace{\cdots}^{k \text{ times}} X\left(\frac{1}{1 - X}\right)'\cdots\right)'$, which can be then scaled to its coefficient. In addition, we notice that if we substitute $X$ with $\alpha X$ in $f = a_0 + a_1 X + a_2 X^2 + \cdots$, we obtain $a_0 + (a_1 \alpha) X + (a_2 \alpha^2) X^2 + \cdots$. Hence, we can substitute $X$ with $\alpha_j X$ in $P_j$ to generate $\{{a_j}^n P_j\}$. For instance, by substituting $X$ with $2X$ in $\dfrac{X + X^2}{(1 - X)^3} \longleftrightarrow \{n^2\}$, we arrive at $\dfrac{(2X + 4X^2)}{(1 - 2X)^3} \longleftrightarrow \{2^n n^2\}$.
 \end{proof}
 
-{\let\clearpage\relax\chapter{Discussions and Summary}}\vspace{-0.7cm}
+
+
+
+
+{\let\clearpage\relax\chapter{Discussions and Summary}}\label{ch:conclusion}
 % Synthesis of arguments: new connections/understanding, insights, big picture
 % Description, explanation, justification of conclusion
 % Reflective comments: confidence, more time, Q > A
@@ -717,12 +741,12 @@ It suffices to find the generating function of $g_n$ by combining manipulations.
 % 
 
 So far, we have defined generating functions as formal power series, introduced a few operations on them and explained their respective significance on the corresponding sequence, and studied one of their most important applications --- solving linear recurrence relations. We shall now return to address some doubts raised during the process.
-\clearpage
+
 \section{Why the form \texorpdfstring{$f = \sum_{n = 0}^\infty a_n X^n$}\text{?}}
 
 The gist of generating functions is to encode the sequence $\{a_n\}$ as a power series $a_0 + a_1 X + a_2 X^2 + \cdots$ to make many manipulations possible. For example, we defined multiplication of generating functions as the convolution of the two sequences, and have shown that it has the properties that we presumed with multiplication: it is associative, commutative, and distributive over addition; $0$ and $1$ respectively play the roles of the null element and the identity element; the product of any non-null generating functions is not null; lastly, each generating function with a non-zero constant term has a unique multiplicative inverse, which allowed us to define division and fractions. We can, of course, prove these properties with the notion of convolution only and without introducing generating functions; this comes at the expense of intuitiveness and succinctness, however, since the operations of shifting and taking derivatives would become unwieldy to employ using a sequence. This corresponds to Leibniz's remark \autocite[1]{zorich}: ``If the notation is adapted to the discoveries..., the work of thought is marvellously shortened.'' 
 
-Regarding the particular form of the series, $a_0 $ is in fact known as the \textbf{ordinary} generating functions. One of their most important uses is to reveal structural information about a sequence, such as solving linear recurrence relations. There exist other kinds of generating functions of other forms, each suited for different purposes. To list a few, the exponential generating functions $\sum_{n = 0}^\infty a_n \frac{X^n}{n!}$ find use in combinatorical problems, while the series $\sum_{n = 0}^\infty a_n e^{-i\omega n}$ is related to the discrete-time Fourier transform.
+Regarding the particular form of the series, $a_0 $ is in fact known as the \textbf{ordinary} generating functions. One of their most important uses is to reveal structural information about a sequence, such as solving linear recurrence relations. There exist other kinds of generating functions of other forms, each suited for different purposes. To list a few, the exponential generating functions $\sum_{n = 0}^\infty a_n \frac{X^n}{n!}$ find use in combinatorical problems, while the series $\sum_{n = 0}^\infty a_n e^{-i\omega n}$ favoured by engineers because of its relation to the discrete-time Fourier transform.
 
 \section{Are ``generating functions'' functions?}
 Within the scope of this essay, generating functions are treated as formal power series instead of functions. Nonetheless, the formal derivative is analogous to the habitual derivative of polynomials; the sum rule, product rule, power rule, and quotient rule from differential calculus are equally valid; an alternative formulation of Maclaurin's series is available. They are still functions in the sense that they share common operations and properties.
