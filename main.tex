@@ -171,7 +171,7 @@ Let $f \longleftrightarrow \{a_n\}$ and $c \in \C$. $f = c \iff \begin{cases}
 \end{lem}
 \begin{proof}\label{proof:gf-id-c}
 \[c = c + 0X + 0X^2 + \cdots \longleftrightarrow \{c, 0, 0, \dots\}\]
-By Definition~\ref{def:gf-eq}, we have $\begin{cases}
+By \cref{def:gf-eq}, we have $\begin{cases}
 a_0 = c\\
 a_n = 0, \quad n \geq 1.
 \end{cases}$
@@ -190,7 +190,7 @@ Having constructed $\C\llbracket X \rrbracket$ with the definition and equivalen
 \end{alignat*}
 \end{defn}
 \begin{rem}\label{rem:gf-addition-properties}
-It follows directly from Definition~\ref{def:gf-addition} that addition in $\C\llbracket X \rrbracket$ is:
+It follows directly from \cref{def:gf-addition} that addition in $\C\llbracket X \rrbracket$ is:
 \begin{itemize}
     \item \textbf{associative} --- $\forall f, g, h \in \C\llbracket X \rrbracket, (f + g) + h = f + (g + h)$,
     \item \textbf{commutative} --- $\forall f, g \in \C\llbracket X \rrbracket, f + g = g + f$, and in particular, $f + 0 = 0 + f = f$,
@@ -259,7 +259,7 @@ Then, we show the converse implication by considering its contrapositive: $f \ne
 Let $f \longleftrightarrow \{a_n\}$. $f$ has a unique multiplicative inverse, $\frac{1}{f}$, such that $f \cdot \frac{1}{f} = 1$, if and only if $a_0 \neq 0$. We then define \textbf{division} by $f$ with multiplication by $\frac{1}{f}$ if it exists.
 \end{thm}
 \begin{proof}
-Let $\frac{1}{f} \longleftrightarrow \{b_n\}$. From Definition~\ref{def:gf-multiplication} and Lemma~\ref{lem:gf-id-c}, we have
+Let $\frac{1}{f} \longleftrightarrow \{b_n\}$. From \cref{def:gf-multiplication} and \cref{lem:gf-id-c}, we have
 \begin{align*}
     &\begin{cases}
         a_0 b_0 &= 1\\
@@ -301,7 +301,7 @@ Some multiplications have special significances on sequences. Namely, multiplyin
 \end{rem}
 
 \begin{rem}\label{rem:gf-shifting}
-\textbf{(shifting)} Let $f \longleftrightarrow \{a_n\}, m \in \N$. Then $X^m \cdot f \longleftrightarrow \{\overbrace{0, 0, \cdots, 0}^{m\text{ zeros}}, a_0, a_1, a_2, \cdots\}$. For simplicity, we define $a_{n}$ to be $0$ for any negative integer $n$. Thus $X^m \cdot f \longleftrightarrow \{a_{n - c}\}$.
+\textbf{(shifting)} Let $f \longleftrightarrow \{a_n\}, m \in \N$. Then $X^m \cdot f \longleftrightarrow \{\overbrace{0, \cdots, 0}^{m\text{ zeros}}, a_0, a_1, a_2, \cdots\}$. For simplicity, we define $a_{n}$ to be $0$ for any negative integer $n$. Thus $X^m \cdot f \longleftrightarrow \{a_{n - c}\}$.
 \begin{alignat*}{7}
     f &= a_0 + a_1 &&X + \cdots + a_{c - 1} &&X^{c - 1} + a_c &&X^c + a_{c + 1} &&X^{c + 1} \cdots &&= \sum\nolimits_{n = 0}^\infty a_n X^n\\
     X^m \cdot f &= a_{-m} + a_{-m + 1}&&X + \cdots + a_{-1} &&X^{m - 1} + a_0 &&X^m + a_1 &&X^{m + 1}\cdots &&= \sum\nolimits_{n = 0}^\infty a_{n - m} X^n
@@ -315,7 +315,7 @@ $\dfrac{1}{1 - \lambda X} \longleftrightarrow \{1, \lambda, \lambda^2, \dots\}$ 
 \end{cor}
 \begin{proof}
 Let $\frac{1}{1 - \lambda X} \longleftrightarrow \{a_n\}$.
-By Theorem~\ref{thm:gf-mult-inv}, $(1 - \lambda X) \cdot \dfrac{1}{1 - \lambda X} = 1$. Also, by Remarks~\ref{rem:gf-scaling} and~\ref{rem:gf-shifting}, we can view this product as generating $\{a_n - \lambda a_{n - 1}\}$. Then, by Lemma~\ref{lem:gf-id-c},
+By \cref{thm:gf-mult-inv}, $(1 - \lambda X) \cdot \dfrac{1}{1 - \lambda X} = 1$. Also, by Remarks~\ref{rem:gf-scaling} and~\ref{rem:gf-shifting}, we can view this product as generating $\{a_n - \lambda a_{n - 1}\}$. Then, by \cref{lem:gf-id-c},
 \begin{align*}
     \iff &\begin{cases}
     a_0 - \lambda a_{-1} &= 1\\
@@ -388,7 +388,7 @@ To show $(f^m)' = c f^{m - 1} \cdot f'$ for $m \in \N$, we proceed by induction 
 \item By the principle of mathematical induction, $(f^m)' = m f^{m - 1} \cdot f'$.
 \end{description}
 
-We then find $(\frac{1}{f^m})'$ with the product rule, remembering from Remark~\ref{rem:gf-constant-deriv} that $1' = 0$:
+We then find $(\frac{1}{f^m})'$ with the product rule, remembering from \cref{rem:gf-constant-deriv} that $1' = 0$:
 \begin{align*}
     &f^m \cdot \frac{1}{f^m} = 1\\
     \implies &(f^m \cdot \frac{1}{f^m})' = 0\\
@@ -422,14 +422,14 @@ We notice that $f^{(n)}[0] = n!\,a_n$, hence $a_n = \frac{f^{(n)}[0]}{n!}$.
 $\dfrac{1}{(1 - \lambda X)^m} \longleftrightarrow \{\binom{m + n - 1}{n} \lambda^n\}$ for $m \in \N, \lambda \in \C^*$.
 \end{cor}
 \begin{proof}
-Let $f = \dfrac{1}{(1 - \lambda X)^m}$. By Lemma~\ref{lem:gf-power-rule}, $f' = \dfrac{m \lambda}{(1 - \lambda X)^{m + 1}}, f'' = \dfrac{m(m + 1) \lambda^2}{(1 - \lambda X)^{m + 2}}, \dots$, 
+Let $f = \dfrac{1}{(1 - \lambda X)^m}$. By \cref{lem:gf-power-rule}, $f' = \dfrac{m \lambda}{(1 - \lambda X)^{m + 1}}, f'' = \dfrac{m(m + 1) \lambda^2}{(1 - \lambda X)^{m + 2}}, \dots$, 
 \[
 f^{(n)} 
 = m (m + 1) \cdots (m + n - 1) \lambda^n \cdot \dfrac{1}{(1 - \lambda X)^{m + n}}
 = \dfrac{(m + n - 1)!\,\lambda^n}{(m - 1)!} \cdot \dfrac{1}{(1 - \lambda X)^{m + n}}
 .
 \]
-We continue by applying Theorem~\ref{thm:gf-maclaurin} to find the sequence $\{a_n\}$ that $f$ generates. When calculating $f^{(n)}[0]$, one might be tempted to evaluate $f^{(n)}$ at $X = 0$. Although this substitution does not lead to issues of convergence from a power series view, it remains illegal for formal power series that we are working with. Instead, we should recognise that for $g \in \C\llbracket X \rrbracket$, if $g[0] = 1$ (which we know is the case here with $g = \dfrac{1}{1 - \lambda X}$ from Corollary~\ref{cor:gf-1-lambda_X}), then $g^n[0] = 1$ for any positive integer $n$. This can be shown by induction on $n$: $g^1[0] = g[0] = 1$; if $g^k[0] = 1$ for a certain $k \in \N$, then $g^{k + 1}[0] = (g \cdot g^k)[0] = 1 \cdot 1 = 1$. Hence, we have 
+We continue by applying \cref{thm:gf-maclaurin} to find the sequence $\{a_n\}$ that $f$ generates. When calculating $f^{(n)}[0]$, one might be tempted to evaluate $f^{(n)}$ at $X = 0$. Although this substitution does not lead to issues of convergence from a power series view, it remains illegal for formal power series that we are working with. Instead, we should recognise that for $g \in \C\llbracket X \rrbracket$, if $g[0] = 1$ (which we know is the case here with $g = \dfrac{1}{1 - \lambda X}$ from \cref{cor:gf-1-lambda_X}), then $g^n[0] = 1$ for any positive integer $n$. This can be shown by induction on $n$: $g^1[0] = g[0] = 1$; if $g^k[0] = 1$ for a certain $k \in \N$, then $g^{k + 1}[0] = (g \cdot g^k)[0] = 1 \cdot 1 = 1$. Hence, we have 
 \[a_n = \frac{f^{(n)}[0]}{n!} = \dfrac{(m + n - 1)!}{(m - 1)!\,n!} \lambda^n = \binom{m + n - 1}{m} \lambda^n.\]
 In particular, when $\lambda = 1$, $a_n = \binom{m + n - 1}{n}$.
 \end{proof}
@@ -445,19 +445,19 @@ We shall finish this chapter by summing up our findings:
     $1$ 
     & 
     & $\longleftrightarrow \{1, 0, 0, 0, 0, 0, 0, \dots\}$ 
-    &see Lemma~\ref{lem:gf-id-c}\\
+    &see \cref{lem:gf-id-c}\\
     
     &&&\\
     $\dfrac{1}{1 - X}$ 
     & $= \sum_{n = 0}^\infty X^n$ 
     & $\longleftrightarrow \{1, 1, 1, 1, 1, 1, 1, \dots\}$ 
-    &see Corollary~\ref{cor:gf-1-lambda_X}\\
+    &see \cref{cor:gf-1-lambda_X}\\
     
     &&&$\lambda \in \C^*$\\
     $\dfrac{1}{1 - \lambda X}$ 
     & $= \sum_{n = 0}^\infty \lambda^n X^n$ 
     & $\longleftrightarrow \{1, \lambda, \lambda^2, \lambda^3, \lambda^4, \lambda^5, \dots\}$ 
-    &see Corollary~\ref{cor:gf-1-lambda_X}\\
+    &see \cref{cor:gf-1-lambda_X}\\
     
     % &&& $c \in \N$;\\
     % $(1 + X)^c$ 
@@ -469,13 +469,13 @@ We shall finish this chapter by summing up our findings:
     $\dfrac{1}{(1 - X)^m}$
     & $= \sum_{n = 0}^{\infty} \binom{m + n - 1}{n} X^n$
     & $\longleftrightarrow \{1, m, \binom{m + 1}{2}, \binom{m + 2}{3}, \dots\}$
-    & see Corollary~\ref{cor:gf-1-lambdaX-raised-to-m}\\
+    & see \cref{cor:gf-1-lambdaX-raised-to-m}\\
     
     &&&$m \in \N, \lambda \in \C^*$\\
     $\dfrac{1}{(1 - \lambda X)^m}$
     & $= \sum_{n = 0}^{\infty} \binom{m + n - 1}{n} \lambda^n X^n$
     & $\longleftrightarrow \{1, m \lambda, \binom{m + 1}{2} \lambda^2, \dots\}$
-    & see Corollary~\ref{cor:gf-1-lambdaX-raised-to-m}
+    & see \cref{cor:gf-1-lambdaX-raised-to-m}
     
     \end{tabular}
     %\caption{Caption}
@@ -516,7 +516,7 @@ We can show that if $\{a_n\}$ and $\{b_n\}$ are solutions to the recurrence rela
 \end{sproof}
 
 \subsection{Fibonacci sequence}
-Recall the Fibonacci sequence from Chapter~\ref{ch:intro}:
+Recall the Fibonacci sequence from \cref{ch:intro}:
 \[
 \begin{cases}
 F_0 &= 0\\
@@ -525,14 +525,14 @@ F_n &= F_{n - 1} + F_{n - 2}, \quad n \geq 2
 \end{cases}
 \]
 
-We now explain two methods to derive a closed-form expression for $F_n$: using the characteristic polynomial, and using generating functions. The first approach consists of a direct application of Theorem~\ref{thm:solve-lin-homo-recur}; many parallels can be drawn between the second method and the first, but moreover generating functions are of wide applicability.
+We now explain two methods to derive a closed-form expression for $F_n$: using the characteristic polynomial, and using generating functions. The first approach consists of a direct application of \cref{thm:solve-lin-homo-recur}; many parallels can be drawn between the second method and the first, but moreover generating functions are of wide applicability.
 
 \subsubsection{Characteristic polynomial}
 The characteristic polynomial of the Fibonacci recurrence relation is
 \[X^2 - X - 1 = \left(X - \frac{1 - \sqrt{5}}{2}\right)
                 \left(X - \frac{1 + \sqrt{5}}{2}\right).
 \]
-By Theorem~\ref{thm:solve-lin-homo-recur}, the solution to the recurrence relation is of the form 
+By \cref{thm:solve-lin-homo-recur}, the solution to the recurrence relation is of the form 
 \[F_n = \alpha \left(\frac{1 - \sqrt{5}}{2}\right)^n + \beta \left(\frac{1 + \sqrt{5}}{2}\right)^n, \quad n \geq 0\]
 where the constants $\alpha$ and $\beta$ are determined by the initial conditions
 \begin{align*}
@@ -555,7 +555,7 @@ which lets us conclude that
 This closed-form expression for the $n$th term of the Fibonacci sequence is known as ``Binet's formula'', despite Abraham de Moivre's prior discovery using generating functions early in the 18th century \autocite[83]{knuth}. Let us now study de Moivre's method.
 
 \subsubsection{Generating functions}
-Let $f$ be the generating function for the Fibonacci sequence $\{F_n\}$. Our goal is to find an expression for $f$ using operations from Chapter~\ref{ch:gf}. Starting with the definition of $f$:
+Let $f$ be the generating function for the Fibonacci sequence $\{F_n\}$. Our goal is to find an expression for $f$ using operations from \cref{ch:gf}. Starting with the definition of $f$:
 
 \begin{alignat*}{10}
 f &= &F_0 &+ &F_1 X &+ &F_2 X^2 &+ &F_3 X^3 &+ &\cdots\\
@@ -579,7 +579,7 @@ On the other hand, by observing the definition of $f$, we arrive at
 
 Therefore \[f = \frac{X}{1 - X - X^2}.\]
 
-Having obtained an expression for $f$, we are now interested in extracting sequence $\{F_n\}$. Certainly, Theorem~\ref{thm:gf-maclaurin} tells us that it is possible to use the Maclaurin's series; the problem, however, is that we do not know the formula for the $n$th derivative of $f$. Instead, we can decompose $f$ into partial fractions of the forms that we are familiar with (see Section~\ref{sec:gf-summary}):
+Having obtained an expression for $f$, we are now interested in extracting sequence $\{F_n\}$. Certainly, \cref{thm:gf-maclaurin} tells us that it is possible to use the Maclaurin's series; the problem, however, is that we do not know the formula for the $n$th derivative of $f$. Instead, we can decompose $f$ into partial fractions of the forms that we are familiar with (see \cref{sec:gf-summary}):
 \[
     f
     = \frac{X}{
@@ -595,7 +595,7 @@ where $\alpha$ and $\beta$ satisfy $\alpha(1 - \frac{1 - \sqrt{5}}{2}X) + \beta(
 \frac{1 - \sqrt{5}}{2} \alpha + \frac{1 + \sqrt{5}}{2} \beta = 1
 \end{cases}
 \]
-which is identical to (\ref{eq:rec-constants}) from the first approach, giving $\alpha = -\frac{1}{\sqrt{5}}$ and $\beta = \frac{1}{\sqrt{5}}$. Hence, 
+which is identical to \cref{eq:rec-constants} from the first approach, giving $\alpha = -\frac{1}{\sqrt{5}}$ and $\beta = \frac{1}{\sqrt{5}}$. Hence, 
 \[
 F_n = -\frac{1}{\sqrt{5}} \left(\frac{1 - \sqrt{5}}{2}\right)^n + \frac{1}{\sqrt{5}} \left(\frac{1 + \sqrt{5}}{2}\right)^n, \quad n \geq 0
 \]
@@ -612,7 +612,7 @@ Firstly, we make the observation that having $Q$ in the denominator is not very 
     (q_0 + q_1 X + \cdots + q_k X^k) \cdot f &= p_0 + p_1 X + p_2 X^2 + \cdots + p_m X^m
 \end{align*}
 
-Recalling what Remarks~\ref{rem:gf-scaling} and~\ref{rem:gf-shifting} tell us about scaling and shifting, we can view the left hand side of the equation as generating the sequence $\{q_0 a_n + q_1 a_{n - 1} + \cdots + q_k a_{n - k}\}$. Then, Definition~\ref{def:gf-eq} allows us to identify each term and establish the following relations:
+Recalling what Remarks~\ref{rem:gf-scaling} and~\ref{rem:gf-shifting} tell us about scaling and shifting, we can view the left hand side of the equation as generating the sequence $\{q_0 a_n + q_1 a_{n - 1} + \cdots + q_k a_{n - k}\}$. Then, \cref{def:gf-eq} allows us to identify each term and establish the following relations:
 \begin{align*}\label{eq:rec-reational-fxn}
 &q_0 a_n + q_1 a_{n - 1} + \cdots + q_k a_{n - k} = p_n, \quad n \geq 0\\
 \iff &\begin{cases}
@@ -625,7 +625,7 @@ Recalling what Remarks~\ref{rem:gf-scaling} and~\ref{rem:gf-shifting} tell us ab
 \end{cases}\tag{**}
 \end{align*}
 
-Since we defined $a_{-n}$ to be $0$ for all $n \geq 0$, the first part of (\ref{eq:rec-reational-fxn}) corresponds to the \textbf{initial conditions} $a_0, a_1, \dots, a_m$, and the second part defines a linear homogeneous \textbf{recurrence relation} of order $k$ with constant coefficients.
+Since we defined $a_{-n}$ to be $0$ for all $n \geq 0$, the first part of \cref{eq:rec-reational-fxn} corresponds to the \textbf{initial conditions} $a_0, a_1, \dots, a_m$, and the second part defines a linear homogeneous \textbf{recurrence relation} of order $k$ with constant coefficients.
 
 \begin{thm}\label{thm:gf-to-linrec}
 Every generating function of the form $\dfrac{P}{Q}$ corresponds to a sequence satisfying a linear homogeneous recurrence relation of order $k$ with constant coefficients, where $P$ is a polynomial and $Q = q_0 + q_1 X + \cdots + q_k X^k$ with $q_0 \neq 0$. Conversely, the generating function of a sequence satisfying a linear homogeneous recurrence relation takes this form.
@@ -644,7 +644,7 @@ This procedure is functional because $f$ allows us to manipulate $\{a_n\}$ in ma
 \end{proof}
 
 \subsection{Decomposing the generating function}
-Theorem \ref{thm:gf-to-linrec} allows us to find the generating function $f = \frac{P}{Q}$ for the linear homogeneous recurrence relation $a_n = c_{k - 1} a_{n - 1} + c_{k - 2} a_{n - 2} + \cdots + c_0 a_{n - k}$. Following the previously outlined procedure, we can identify that $Q = 1 - c_{k - 1} X - c_{k - 2} X^2 - \cdots - c_{0} X^k$. If we compare this with the characteristic polynomial $X^k - c_{k - 1} X^{k - 1} - c_{k - 2} X^{k - 2} - \cdots - c_{0}$, we can see that $Q$ is the reflected version of the characteristic polynomial. 
+\cref{thm:gf-to-linrec} allows us to find the generating function $f = \frac{P}{Q}$ for the linear homogeneous recurrence relation $a_n = c_{k - 1} a_{n - 1} + c_{k - 2} a_{n - 2} + \cdots + c_0 a_{n - k}$. Following the previously outlined procedure, we can identify that $Q = 1 - c_{k - 1} X - c_{k - 2} X^2 - \cdots - c_{0} X^k$. If we compare this with the characteristic polynomial $X^k - c_{k - 1} X^{k - 1} - c_{k - 2} X^{k - 2} - \cdots - c_{0}$, we can see that $Q$ is the reflected version of the characteristic polynomial. 
 
 \begin{rem}\label{lem:roots-reflected-poly}
 Let $P = p_0 + p_1 X + \cdots + p_n X^n$. $P^*$ denotes its \textbf{reflected polynomial}, $p_n + p_{n - 1} X + \cdots + p_0 X^n$. If $P = (X - \lambda_1) (X - \lambda_2) \cdots (X - \lambda_n)$ where $\lambda_1, \lambda_2, \dots, \lambda_n \in \C$ are allowed to repeat, then $P^* = (1 - \lambda_1 X)(1 - \lambda_2 X)\cdots(1 - \lambda_n X)$. This can be easily shown by comparing the coefficient of $X^k$ in $P^*$ and the coefficient of $X^{n - k}$ in $P$ for $k$ ranging from $0$ to $n$. 
@@ -653,7 +653,7 @@ Let $P = p_0 + p_1 X + \cdots + p_n X^n$. $P^*$ denotes its \textbf{reflected po
 In addition, the procedure also reveals that the term with the highest degree in the numerator $P$ is $X^i \cdot X^{k - i - 1} = X^{k - 1}$. Then, if the characteristic polynomial can be factored into $(X - \lambda_1)^{m_1 + 1} \cdots (X - \lambda_p)^{m_p + 1}$ where $\lambda_1, \dots, \lambda_p$ are distinct, then its reflected polynomial $Q$ can be factored into $(1 - \lambda_1 X)^{m_1 + 1} \cdots (1 - \lambda_p X)^{m_p + 1}$, and $\dfrac{P}{Q}$ can be decomposed into
 \[\frac{\alpha_{1, m_1 + 1}}{(1 - \lambda_1 X)^{m_1 + 1}} + \cdots + \frac{\alpha_{1, 1}}{1 - \lambda_1 X} + \cdots + \frac{\alpha_{p, m_p + 1}}{(1 - \lambda_p X)^{m_p + 1}} + \cdots + \frac{\alpha_{p, 1}}{1 - \lambda_p X}.\]
 
-From Section~\ref{sec:gf-summary}, we know that $\dfrac{1}{(1 - \lambda X)^m}$ for $m \in \N$ and $\lambda \in \C^*$ generates $\{\binom{m + n - 1}{n} \lambda^n\}$. This shares many similarities with Theorem~\ref{thm:solve-lin-homo-recur}: the constants $\alpha_{i, j}$ are determined by the initial conditions; for $\lambda_i$ of multiplicity $m_i + 1$, $\alpha_{i, m_i + 1} \binom{m_i + n}{n} \lambda^n + \cdots + \alpha_{i, 1} \binom{n}{n} \lambda^n = R \cdot \lambda^n$, where $R = \alpha_{i, 1} + \cdots + \alpha_{i, m_i + 1}(m_i + n)(m_i + n - 1)\cdots(1 + n)/(m_i(m_i - 1)\cdots1)$ is a polynomial in $n$ of degree $m_i$, contributes to the solution.
+From \cref{sec:gf-summary}, we know that $\dfrac{1}{(1 - \lambda X)^m}$ for $m \in \N, \lambda \in \C^*$ generates $\{\binom{m + n - 1}{n} \lambda^n\}$. This shares many similarities with \cref{thm:solve-lin-homo-recur}: the constants $\alpha_{i, j}$ are determined by the initial conditions; for $\lambda_i$ of multiplicity $m_i + 1$, $\alpha_{i, m_i + 1} \binom{m_i + n}{n} \lambda^n + \cdots + \alpha_{i, 1} \binom{n}{n} \lambda^n = R \cdot \lambda^n$, where $R = \alpha_{i, 1} + \cdots + \alpha_{i, m_i + 1}(m_i + n)(m_i + n - 1)\cdots(1 + n)/(m_i(m_i - 1)\cdots1)$ is a polynomial in $n$ of degree $m_i$, contributes to the solution.
 
 \section{Linear Non-homogeneous Recurrence Relations}Perhaps generating functions didn't seem to simplify the process of solving linear homogeneous recurrence relations. Indeed, they are much more powerful when it comes to non-homogeneous recurrence relations.
 
@@ -687,7 +687,7 @@ s_n = s_{n - 1} + n^2, \quad n \geq 1
 \end{cases}
 \]
 
-Let $f$ be the generating function for $\{s_n\}$. Carrying out the procedure from Theorem~\ref{thm:gf-to-linrec},
+Let $f$ be the generating function for $\{s_n\}$. Carrying out the procedure from \cref{thm:gf-to-linrec},
 \begin{align*}
 &\sum_{n = 1}^\infty s_n X^n = \sum_{n = 1}^\infty s_{n - 1}X^n + \sum_{n = 1}^\infty n^2 X^n\\
 \iff &f - s_0 = X f + \sum_{n = 0}^\infty n^2 X^n - 0^2\\
@@ -708,10 +708,10 @@ Hence, $\{n^2\}$ is generated by
 Then, 
 \[f = \frac{X + X^2}{(1 - X)^4} = X \cdot \frac{1}{(1 - X)^4} + X^2 \cdot \frac{1}{(1 - X)^4}.\]
 
-From Section~\ref{sec:gf-summary}, we know that $\dfrac{1}{(1 - X)^4}$ generates the sequence $\binom{n + 3}{n}$. Therefore,
+From \cref{sec:gf-summary}, we know that $\dfrac{1}{(1 - X)^4}$ generates the sequence $\binom{n + 3}{n}$. Therefore,
 \[s_n = \binom{n + 2}{n - 1} + \binom{n + 1}{n - 2} = \frac{(n + 2) (n + 1) n}{3 \times 2 \times 1} + \frac{(n + 1) n (n - 1)}{3 \times 2 \times 1} = \frac{n (n + 1) (2n + 1)}{6}.\]
 
-Interestingly, the generating function $f$ of this non-homogeneous recurrence relation also takes the form $\frac{P}{Q}$. By Theorem~\ref{thm:gf-to-linrec}, $f$ corresponds to a homogeneous recurrence relation. Indeed, as $(1 - 4X + 6X^2 - 4X^3 + X^4) f = X + X^2$,
+Interestingly, the generating function $f$ of this non-homogeneous recurrence relation also takes the form $\frac{P}{Q}$. By \cref{thm:gf-to-linrec}, $f$ corresponds to a homogeneous recurrence relation. Indeed, as $(1 - 4X + 6X^2 - 4X^3 + X^4) f = X + X^2$,
 \[
 \begin{cases}
 s_0 = 0, s_1 = 1, s_2 = 5, s_3 = 14,\\
