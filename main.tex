@@ -711,7 +711,7 @@ Then,
 From \cref{sec:gf-summary}, we know that $\dfrac{1}{(1 - X)^4}$ generates the sequence $\binom{n + 3}{n}$. Therefore,
 \[s_n = \binom{n + 2}{n - 1} + \binom{n + 1}{n - 2} = \frac{(n + 2) (n + 1) n}{3 \times 2 \times 1} + \frac{(n + 1) n (n - 1)}{3 \times 2 \times 1} = \frac{n (n + 1) (2n + 1)}{6}.\]
 
-Interestingly, the generating function $f$ of this non-homogeneous recurrence relation also takes the form $\frac{P}{Q}$. By \cref{thm:gf-to-linrec}, $f$ corresponds to a homogeneous recurrence relation. Indeed, as $(1 - 4X + 6X^2 - 4X^3 + X^4) f = X + X^2$,
+Interestingly, the generating function $f$ of this non-homogeneous recurrence relation also takes the form $\frac{P}{Q}$. By \cref{thm:gf-to-linrec}, $f$ corresponds to a homogeneous recurrence relation. Indeed, as $(1 - 4X + 6X^2 - 4X^3 + X^4) f = X + X^2$, we can alternatively define $\{s_n\}$ by:
 \[
 \begin{cases}
 s_0 = 0, s_1 = 1, s_2 = 5, s_3 = 14,\\
@@ -721,7 +721,7 @@ s_n = 4s_{n - 1} - 6s_{n - 2} + 4 s_{n - 3} - s_{n - 4}, \quad n \geq 4.
 
 At last, we shall finish by considering what kind of non-homogeneous recurrence relations generating functions enable us to solve.
 \begin{thm}
-Let $a_n = c_{k - 1}a_{n - 1} + c_{k - 2}a_{n - 2} + \cdots + c_0 a_{n - k} + g_n$ for $n \geq k$. The generating function of $\{a_n\}$ takes the form $\dfrac{P}{Q}$ (with $\rm{deg}(P) < \rm{deg}(Q)$) if and only if \[g_n = \sum_{j = 1}^{m} {\alpha_j}^n P_j\]
+Let $a_n = c_{k - 1}a_{n - 1} + c_{k - 2}a_{n - 2} + \cdots + c_0 a_{n - k} + g_n$ for $n \geq k$. The generating function of $\{a_n\}$ takes the form $\dfrac{P}{Q}$ (with $\mathrm{deg}(P) < \mathrm{deg}(Q)$) if and only if \[g_n = \sum_{j = 1}^{m} {\alpha_j}^n P_j\]
 where $m \in \N$ and $P_j$ is a polynomial in $n$.
 \end{thm}
 \begin{proof}
@@ -748,9 +748,11 @@ The gist of generating functions is to encode the sequence $\{a_n\}$ as a power 
 Regarding the particular form of the series, $\sum_{n = 0}^\infty a_n X^n$ is in fact known as the \textbf{ordinary} generating functions. One of their most important uses is to reveal structural information about a sequence, such as solving linear recurrence relations. There exist other kinds of generating functions of other forms, each suited for different purposes. To list a few, the exponential generating functions $\sum_{n = 0}^\infty a_n \frac{X^n}{n!}$ find uses in combinatorial problems, while the series $\sum_{n = 0}^\infty a_n e^{-i\omega n}$ is favoured by engineers because of its relation to the discrete-time Fourier transform.
 
 \section{Are ``generating functions'' functions?}
+Just like how polynomials are algebraic objects and analytic functions at the same time, generating functions --- generalisation of polynomials to infinite degrees --- are formal power series and complex-valued functions at the same time. Proper treatment of issues of convergence that arise when we consider generating functions as functions requires knowledge far beyond the scope of this essay; instead, we should simply note that complex analysis allows us to obtain additional information about the corresponding sequence (e.g., asymptotic growth rates, which computer scientists are interested in). 
+
 Within the scope of this essay, generating functions are treated as formal power series instead of functions. Nonetheless, the formal derivative is analogous to the habitual derivative of polynomials; the sum rule, product rule, power rule, and quotient rule from differential calculus are equally valid; an alternative formulation of Maclaurin's series is available. They are still functions in the sense that they share common operations and properties.
 
-Just like how polynomials are algebraic objects and analytic functions at the same time, generating functions --- generalisation of polynomials to infinite degrees --- are formal power series and complex-valued functions at the same time. In treating generating functions as complex-valued functions, issues of convergence whose proper treatment requires knowledge far beyond the scope of this essay kick in; at the same time, complex analysis allows us to obtain additional information within the radius of convergence: for example, we can obtain asymptotic information about a sequence, which computer scientists are interested in, by considering the locations of the poles of the function. It is this duality connecting discrete mathematics and continuous analysis that render generating functions powerful and charming. After all, as Poincaré remarked \autocite[1]{zorich}, ``Mathematics is the art of calling different things by the same name.''
+For me, it is this duality connecting discrete mathematics and continuous analysis that render generating functions powerful and charming. After all, as Poincaré remarked \autocite[1]{zorich}, ``Mathematics is the art of calling different things by the same name.''
 
 
 \nocite{*}
