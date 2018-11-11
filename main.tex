@@ -9,10 +9,10 @@
 \usepackage{epigraph}
 \usepackage{stmaryrd}
 \usepackage{setspace}
-\usepackage[american]{babel}
+\usepackage[british]{babel}
 \usepackage{csquotes}
 \usepackage{tikz}
-\usepackage[style=mla,backend=biber]{biblatex}
+\usepackage[style=mla-new,backend=biber]{biblatex}
 % clickable table of contents
 \hypersetup{
     linktoc=all,
@@ -27,11 +27,14 @@
 % MLA citations; `autocite{}` to cite
 \addbibresource{sources.bib}
 
+% Remove () from theorem name
+\usepackage{etoolbox}
+\patchcmd{\thmhead}{(#3)}{#3}{}{}
+
 % \defbibheading{bibliography}{
 %     % Change title from "Works Cited" to "Works Consulted"
 %     \chapter*{Works Consulted}
 % }
-
 
 %% Preamble
 \title{
@@ -301,10 +304,10 @@ Some multiplications have special significances on sequences. Namely, multiplyin
 \end{rem}
 
 \begin{rem}\label{rem:gf-shifting}
-\textbf{(shifting)} Let $f \longleftrightarrow \{a_n\}, m \in \N$. Then $X^m \cdot f \longleftrightarrow \{\overbrace{0, \cdots, 0}^{m\text{ zeros}}, a_0, a_1, a_2, \cdots\}$. For simplicity, we define $a_{n}$ to be $0$ for any negative integer $n$. Thus $X^m \cdot f \longleftrightarrow \{a_{n - c}\}$.
+\textbf{(shifting)} Let $f \longleftrightarrow \{a_n\}, m \in \N$. Then $X^m \cdot f \longleftrightarrow \{\overbrace{0, \cdots, 0}^{m\text{ zeros}}, a_0, a_1, a_2, \cdots\}$. For simplicity, we define $a_{n}$ to be $0$ for any negative integer $n$. Thus $X^m \cdot f \longleftrightarrow \{a_{n - m}\}$.
 \begin{alignat*}{7}
-    f &= a_0 + a_1 &&X + \cdots + a_{c - 1} &&X^{c - 1} + a_c &&X^c + a_{c + 1} &&X^{c + 1} \cdots &&= \sum\nolimits_{n = 0}^\infty a_n X^n\\
-    X^m \cdot f &= a_{-m} + a_{-m + 1}&&X + \cdots + a_{-1} &&X^{m - 1} + a_0 &&X^m + a_1 &&X^{m + 1}\cdots &&= \sum\nolimits_{n = 0}^\infty a_{n - m} X^n
+    f &= a_0 &&+ a_1 &&X + \cdots + a_{m - 1} &&X^{m - 1} + a_m &&X^m + a_{m + 1} &&X^{m + 1} \cdots &&= \sum\nolimits_{n = 0}^\infty a_n X^n\\
+    X^m \cdot f &= a_{-m} &&+ a_{1 - m}&&X + \cdots + a_{-1} &&X^{m - 1} + a_0 &&X^m + a_1 &&X^{m + 1}\cdots &&= \sum\nolimits_{n = 0}^\infty a_{n - m} X^n
 \end{alignat*}
 \end{rem}
 
@@ -374,7 +377,7 @@ Let $f \longleftrightarrow \{a_n\}, g \longleftrightarrow \{b_n\}$.
 \textbf{(power rule)} Let $f \in \C\llbracket X \rrbracket, n \in \N$. Then $(f^m)'  = m f^{m - 1} \cdot f'$. Also, if $\dfrac{1}{f}$ exists, then $\left(\dfrac{1}{f^m}\right)' = -\dfrac{m}{f^{m + 1}} \cdot f'$. Note that we define $f^0$ to be $1$.
 \end{lem}
 \begin{proof}
-To show $(f^m)' = c f^{m - 1} \cdot f'$ for $m \in \N$, we proceed by induction on $m$.
+To show that $(f^m)' = m f^{m - 1} \cdot f'$ for $m \in \N$, we proceed by induction on $m$.
 \begin{description}
 \item \textit{Basis}: $(f^1)' = f' = 1 \cdot f^0 \cdot f'$ holds.
 \item \textit{Inductive step}: For $m \in \N$, show that $(f^m)' = m f^{m - 1} \cdot f' \implies (f^{m + 1})' = (m + 1) f^m \cdot f'$.
@@ -392,14 +395,14 @@ We then find $(\frac{1}{f^m})'$ with the product rule, remembering from \cref{re
 \begin{align*}
     &f^m \cdot \frac{1}{f^m} = 1\\
     \implies &(f^m \cdot \frac{1}{f^m})' = 0\\
-    &(f^m)' \cdot \frac{1}{f^m} + f^m \cdot \left(\frac{1}{f^m}\right)' = 0\\
-    &\left(\frac{1}{f^m}\right)'= -\frac{m f^{m - 1} \cdot f'}{f^m} \cdot \frac{1}{f^m} = -\frac{m}{f^{m + 1}} \cdot f'.
+    \iff &(f^m)' \cdot \frac{1}{f^m} + f^m \cdot \left(\frac{1}{f^m}\right)' = 0\\
+    \iff &\left(\frac{1}{f^m}\right)'= -\frac{m f^{m - 1} \cdot f'}{f^m} \cdot \frac{1}{f^m} = -\frac{m}{f^{m + 1}} \cdot f'.
 \end{align*}
 
 We prove the \textbf{quotient rule} $\left(\dfrac{f}{g}\right)' = \dfrac{f' g - f g'}{g^2}$ in the same manner. From $\dfrac{f}{g} \cdot g = f$,
 \begin{align*}
-    &\left(\frac{f}{g}\right)' \cdot g + \frac{f}{g} \cdot g' = f'\\
-    &\left(\frac{f}{g}\right)' = \frac{f' - \frac{f g'}{g}}{g} = \frac{f' g - f g'}{g^2}
+    \implies &\left(\frac{f}{g}\right)' \cdot g + \frac{f}{g} \cdot g' = f'\\
+    \iff &\left(\frac{f}{g}\right)' = \frac{f' - \frac{f g'}{g}}{g} = \frac{f' g - f g'}{g^2}.
 \end{align*}
 \end{proof}
 
@@ -429,7 +432,7 @@ f^{(n)}
 = \dfrac{(m + n - 1)!\,\lambda^n}{(m - 1)!} \cdot \dfrac{1}{(1 - \lambda X)^{m + n}}
 .
 \]
-We continue by applying \cref{thm:gf-maclaurin} to find the sequence $\{a_n\}$ that $f$ generates. When calculating $f^{(n)}[0]$, one might be tempted to evaluate $f^{(n)}$ at $X = 0$. Although this substitution does not lead to issues of convergence from a power series view, it remains illegal for formal power series that we are working with. Instead, we should recognise that for $g \in \C\llbracket X \rrbracket$, if $g[0] = 1$ (which we know is the case here with $g = \dfrac{1}{1 - \lambda X}$ from \cref{cor:gf-1-lambda_X}), then $g^n[0] = 1$ for any positive integer $n$. This can be shown by induction on $n$: $g^1[0] = g[0] = 1$; if $g^k[0] = 1$ for a certain $k \in \N$, then $g^{k + 1}[0] = (g \cdot g^k)[0] = 1 \cdot 1 = 1$. Hence, we have 
+We continue by applying \cref{thm:gf-maclaurin} to find the sequence $\{a_n\}$ that $f$ generates. When calculating $f^{(n)}[0]$, one might be tempted to evaluate $f^{(n)}$ at $X = 0$. Although this substitution does not lead to issues of convergence from a power series view, it remains illegal for formal power series that we are working with. Instead, we should recognise that for $g \in \C\llbracket X \rrbracket$, if $g[0] = 1$ (which we know is the case here with $g = \dfrac{1}{1 - \lambda X}$ by \cref{cor:gf-1-lambda_X}), then $g^n[0] = 1$ for any positive integer $n$. This can be shown by induction on $n$: $g^1[0] = g[0] = 1$; if $g^k[0] = 1$ for a certain $k \in \N$, then $g^{k + 1}[0] = (g \cdot g^k)[0] = 1 \cdot 1 = 1$. Hence, for all $n \geq 0$, we have 
 \[a_n = \frac{f^{(n)}[0]}{n!} = \dfrac{(m + n - 1)!}{(m - 1)!\,n!} \lambda^n = \binom{m + n - 1}{m} \lambda^n.\]
 In particular, when $\lambda = 1$, $a_n = \binom{m + n - 1}{n}$.
 \end{proof}
@@ -573,7 +576,7 @@ On the one hand, adding $X f$ and $X^2 f$, we obtain
 On the other hand, by observing the definition of $f$, we arrive at
 \begin{align*}
     &f - F_0 - F_1 X = (F_0 - F_0) + (F_1 - F_1)X + F_2 X^2 + F_3 X^3 + \cdots\\
-    \iff &f - X = 0 + 0X + F2 X^2 + F_3 X^3 + \cdots\\
+    \iff &f - 0 - 1 \cdot X = 0 + 0X + F2 X^2 + F_3 X^3 + \cdots\\
     \iff &f - X = (X + X^2) f
 \end{align*}
 
@@ -653,7 +656,7 @@ Let $P = p_0 + p_1 X + \cdots + p_n X^n$. $P^*$ denotes its \textbf{reflected po
 In addition, the procedure also reveals that the term with the highest degree in the numerator $P$ is $X^i \cdot X^{k - i - 1} = X^{k - 1}$. Then, if the characteristic polynomial can be factored into $(X - \lambda_1)^{m_1 + 1} \cdots (X - \lambda_p)^{m_p + 1}$ where $\lambda_1, \dots, \lambda_p$ are distinct, then its reflected polynomial $Q$ can be factored into $(1 - \lambda_1 X)^{m_1 + 1} \cdots (1 - \lambda_p X)^{m_p + 1}$, and $\dfrac{P}{Q}$ can be decomposed into
 \[\frac{\alpha_{1, m_1 + 1}}{(1 - \lambda_1 X)^{m_1 + 1}} + \cdots + \frac{\alpha_{1, 1}}{1 - \lambda_1 X} + \cdots + \frac{\alpha_{p, m_p + 1}}{(1 - \lambda_p X)^{m_p + 1}} + \cdots + \frac{\alpha_{p, 1}}{1 - \lambda_p X}.\]
 
-From \cref{sec:gf-summary}, we know that $\dfrac{1}{(1 - \lambda X)^m}$ for $m \in \N, \lambda \in \C^*$ generates $\{\binom{m + n - 1}{n} \lambda^n\}$. This shares many similarities with \cref{thm:solve-lin-homo-recur}: the constants $\alpha_{i, j}$ are determined by the initial conditions; for $\lambda_i$ of multiplicity $m_i + 1$, $\alpha_{i, m_i + 1} \binom{m_i + n}{n} \lambda^n + \cdots + \alpha_{i, 1} \binom{n}{n} \lambda^n = R \cdot \lambda^n$, where $R = \alpha_{i, 1} + \cdots + \alpha_{i, m_i + 1}(m_i + n)(m_i + n - 1)\cdots(1 + n)/(m_i(m_i - 1)\cdots1)$ is a polynomial in $n$ of degree $m_i$, contributes to the solution.
+From \cref{sec:gf-summary}, we know that $\dfrac{1}{(1 - \lambda X)^m}$ for $m \in \N, \lambda \in \C^*$ generates $\{\binom{m + n - 1}{n} \lambda^n\}$. This shares many similarities with \cref{thm:solve-lin-homo-recur}: the constants $\alpha_{i, j}$ are determined by the initial conditions; for $\lambda_i$ of multiplicity $m_i + 1$, $\alpha_{i, m_i + 1} \binom{m_i + n}{n} \lambda^n + \cdots + \alpha_{i, 1} \binom{n}{n} \lambda^n = R \cdot \lambda^n$, where $R = \alpha_{i, 1} + \cdots + \alpha_{i, m_i + 1}(m_i + n)(m_i - 1 + n)\cdots(1 + n)/(m_i(m_i - 1)\cdots1)$ is a polynomial in $n$ of degree $m_i$, contributes to the solution.
 
 \section{Linear Non-homogeneous Recurrence Relations}Perhaps generating functions didn't seem to simplify the process of solving linear homogeneous recurrence relations. Indeed, they are much more powerful when it comes to non-homogeneous recurrence relations.
 
@@ -720,12 +723,12 @@ s_n = 4s_{n - 1} - 6s_{n - 2} + 4 s_{n - 3} - s_{n - 4}, \quad n \geq 4.
 \]
 
 At last, we shall finish by considering what kind of non-homogeneous recurrence relations generating functions enable us to solve.
-\begin{thm}
-Let $a_n = c_{k - 1}a_{n - 1} + c_{k - 2}a_{n - 2} + \cdots + c_0 a_{n - k} + g_n$ for $n \geq k$. The generating function of $\{a_n\}$ takes the form $\dfrac{P}{Q}$ (with $\mathrm{deg}(P) < \mathrm{deg}(Q)$) if and only if \[g_n = \sum_{j = 1}^{m} {\alpha_j}^n P_j\]
-where $m \in \N$ and $P_j$ is a polynomial in $n$.
+\begin{thm}[{\autocite[400]{tang}}]
+Let $a_n = c_{k - 1}a_{n - 1} + c_{k - 2}a_{n - 2} + \cdots + c_0 a_{n - k} + g_n$ for $n \geq k$. The generating function of $\{a_n\}$ takes the form $\dfrac{P}{Q}$ (with $\mathrm{deg}(P) < \mathrm{deg}(Q)$) if \[g_n = \sum_{j = 1}^{m} {\lambda_j}^n P_j\]
+where $m \in \N$, $\lambda_j \in \C$, and $P_j$ is a polynomial in $n$.
 \end{thm}
 \begin{proof}
-It suffices to find the generating function of $g_n$ by combining manipulations. Specifically, each term $\{n^k\}$ with $k \in \N$ in $\{P_j\}$ is generated by $X\left(\overbrace{\cdots}^{k \text{ times}} X\left(\frac{1}{1 - X}\right)'\cdots\right)'$, which can be then scaled to its coefficient. In addition, we notice that if we substitute $X$ with $\alpha X$ in $f = a_0 + a_1 X + a_2 X^2 + \cdots$, we obtain $a_0 + (a_1 \alpha) X + (a_2 \alpha^2) X^2 + \cdots$. Hence, we can substitute $X$ with $\alpha_j X$ in $P_j$ to generate $\{{a_j}^n P_j\}$. For instance, by substituting $X$ with $2X$ in $\dfrac{X + X^2}{(1 - X)^3} \longleftrightarrow \{n^2\}$, we arrive at $\dfrac{(2X + 4X^2)}{(1 - 2X)^3} \longleftrightarrow \{2^n n^2\}$.
+It suffices to find the generating function of $g_n$ by combining manipulations. Specifically, each term $\{n^k\}$ with $k \in \N$ in $\{P_j\}$ is generated by $X\left(\overbrace{\cdots}^{k \text{ times}} X\left(\frac{1}{1 - X}\right)'\cdots\right)'$, which can be then scaled to its coefficient. In addition, we notice that if we substitute $X$ with $\lambda X$ in $f = a_0 + a_1 X + a_2 X^2 + \cdots$, we obtain $a_0 + (a_1 \lambda) X + (a_2 \lambda^2) X^2 + \cdots$. Hence, we can substitute $X$ with $\lambda_j X$ in $P_j$ to generate $\{{\lambda_j}^n P_j\}$. For instance, by substituting $X$ with $2X$ in $\dfrac{X + X^2}{(1 - X)^3} \longleftrightarrow \{n^2\}$, we arrive at $\dfrac{2X + 4X^2}{(1 - 2X)^3} \longleftrightarrow \{2^n n^2\}$.
 \end{proof}
 
 
@@ -739,7 +742,7 @@ It suffices to find the generating function of $g_n$ by combining manipulations.
 % ! Inappropriate to introduce new arguments
 % 
 
-So far, we have defined generating functions as formal power series, introduced a few operations on them and explained their respective significance on the corresponding sequence, and studied one of their most important applications --- solving linear recurrence relations. We shall now return to address some doubts raised during the process.
+So far, we have defined generating functions as formal power series, introduced a few operations on them, explained their respective significance on the corresponding sequence, and studied one of their most important applications --- solving linear recurrence relations. We shall now return to address some doubts raised during the process.
 
 \section{Why the form \texorpdfstring{$f = \sum_{n = 0}^\infty a_n X^n$}\text{?}}
 
@@ -754,8 +757,11 @@ Within the scope of this essay, generating functions are treated as formal power
 
 For me, it is this duality connecting discrete mathematics and continuous analysis that render generating functions powerful and charming. After all, as Poincaré remarked \autocite[1]{zorich}, ``Mathematics is the art of calling different things by the same name.''
 
-
+{\let\clearpage\relax
+\printbibliography[keyword={consulted}, title={Further Reading}]
 \nocite{*}
-\printbibliography
+\printbibliography[keyword={cited}, title={Works Cited}]
+}
+
 \thispagestyle{empty}
 \end{document}
