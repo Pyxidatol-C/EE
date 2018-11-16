@@ -8,10 +8,10 @@
 \usepackage{titlesec}
 \usepackage{epigraph}
 \usepackage{stmaryrd}
-\usepackage{setspace}
+\usepackage{harmony}
 \usepackage[british]{babel}
 \usepackage{csquotes}
-\usepackage{tikz}
+\usepackage[nodisplayskipstretch]{setspace}
 \usepackage[style=mla-new,backend=biber]{biblatex}
 % clickable table of contents
 \hypersetup{
@@ -22,8 +22,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{titlesec, blindtext, color}
 \definecolor{gray75}{gray}{0.75}
-\newcommand{\hsp}{\hspace{20pt}}
-\titleformat{\chapter}[hang]{\Huge\bfseries\scshape}{\thechapter\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+\titleformat{\chapter}[hang]{\Huge\bfseries\scshape}{\thechapter\hspace{20pt}\textcolor{gray75}{|}\hspace{20pt}}{0pt}{\Huge\bfseries}
 % MLA citations; `autocite{}` to cite
 \addbibresource{sources.bib}
 
@@ -45,12 +44,12 @@
     {\Large How can we use generating functions to solve\\  linear recurrence relations with constant coefficients?}
 }
 % Make anonymous
-\author{\textit{3344 words}}
+\author{\textit{3416 words}}
 % Month and year of graduation
 \date{May 2019}
 
 \begin{document}
-\setstretch{1.20}
+\onehalfspacing
 \allowdisplaybreaks
 \maketitle
 
@@ -71,7 +70,10 @@
 \tableofcontents
 
 \chapter{Introductory Ideas}\label{ch:intro}
+\singlespacing
 \epigraph{A generating function is a clothesline on which we hang up a sequence of numbers for display.}{Herbert Wilf \autocite*[1]{wilf}}
+\doublespacing
+
 % Research question stated
 % Hypothesis
 % Explanation of topic choice: why interesting? connection to passion?
@@ -80,62 +82,67 @@
 % Brief description of how research question will be answered
 % A description of the conclusion: q answered? hypotheses?
 
-When we encounter a complicated problem, we often find it useful to break it down into two parts: the trivial cases, and how we can derive a solution from the solutions of sub-problems. Consider this problem: short syllables are 1 unit of duration, and long syllables 2; how many different cadences, i.e., patterns of short and long syllables that are $n$ units in length can we construct?
+When we encounter a complicated problem, we often find it useful to break it down into two parts: the trivial cases, and how we can derive a solution from the solutions of sub-problems. I enjoyed using this approach to discern mathematical patterns in things when I was little. When I started to play the piano, for example, I asked myself: a \Vier\ is $1$ beat long, and a \Halb\ is 2 beats long; how many different rhythms, i.e., sequences of \Vier s and \Halb s that are $n$ beats long in total can we construct? For instance, \cref{fig:5_beats} below enumerates all the possible rhythms when $n = 4$.
 
 \begin{figure}[h]
     \centering
-    \begin{tikzpicture}
-    \filldraw[color=blue!60, fill=blue!5, very thick] (0, 0) rectangle (1, 1);
-    \filldraw[color=red!60, fill=red!5, very thick] (2, 0) rectangle (4, 1);
-    \end{tikzpicture}
-    \caption{Short and long syllables}
-    \label{fig:short_long}
+    \includegraphics[width=\textwidth]{patterns.png}
+    \caption{All $5$ rhythms of $4$ beats, of which $2$ end with a \Halb\ and $3$ end with a \Vier}
+    \label{fig:5_beats}
 \end{figure}
 
-Let $F_n$ denote the number of patterns of length $n$. We start by considering the trivial cases. When $n = 0$, there is exactly 1 pattern -- not using any syllables, so $F_0 = 1$. When $n = 1$, only 1 short syllable can fit, so there is only 1 pattern as well and $F_1 = 1$.
+Let $F_n$ denote the number of rhythms of $n$ beats. We start by considering the trivial cases. When $n = 0$, there is exactly 1 rhythm --- not using any notes, so $F_0 = 1$. When $n = 1$, only $1$ \Vier\ can fit, so there is only $1$ rhythm as well and $F_1 = 1$.
 
-We then consider the relation between $F_n$ and $F_{n - 1}, F_{n - 2}$, etc. Firstly, if the pattern is $n$ units long and ends with a short syllable (so $n \geq 1$), the remaining $n - 1$ units can be constructed in $F_{n - 1}$ ways.
+We then consider the relation between $F_n$ and $F_{n - 1}, F_{n - 2}$, etc. Firstly, if the rhythm is $n$ beats long and ends with a \Vier\ (so $n \geq 1$), the remaining $n - 1$ beats can be arranged in $F_{n - 1}$ ways, as shown in \cref{fig:end_with_short} below.
 
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
-    \filldraw[color=blue!60, fill=blue!5, very thick] (4, 0) rectangle (5, 1);
-    \filldraw[fill=gray!5, thick, dotted] (0, 0) rectangle (4, 1);
-    \draw [brace, decoration={raise=0.5ex}] (0, 0) -- (4, 0) node [position label, pos=0.5] {$n - 1$ units};
+    \foreach \y in {0,0.15,...,0.61} {
+        \draw (0.00, \y) -- (0.766, \y);
+        \draw (3.234, \y) -- (4.0, \y);
+    }
+    \node[above] at (2.0, 0) {$\cdots$};
+    \node[above] at (4.5, 0) {\Vier};
+    \draw[brace, decoration={raise=0.5ex}] (0, 0) -- (4, 0) node [position label, pos=0.5] {$n - 1$ beats};
     \end{tikzpicture}
-    \caption{Patterns of length $n$ ending with a short syllable}
+    \caption{Rhythms of $n$ beats ending with a \Vier}
     \label{fig:end_with_short}
 \end{figure}
 
-Similarly, if the pattern of length $n$ ends with a long syllable (so $n \geq 2$), the remaining $n - 2$ units can be constructed in $F_{n - 2}$ ways.
+Similarly, if the rhythm of $n$ beats ends with a \Halb\ (so $n \geq 2$), the remaining $n - 2$ beats can be arranged in $F_{n - 2}$ ways, as shown in \cref{fig:end_with_long} below.
 
 \begin{figure}[h]
     \centering
     \begin{tikzpicture}
-    \filldraw[color=red!60, fill=red!5, very thick] (3, 0) rectangle (5, 1);
-    \filldraw[fill=gray!5, thick, dotted] (0, 0) rectangle (3, 1);
-    \draw [brace, decoration={raise=0.5ex}] (0, 0) -- (3, 0) node [position label, pos=0.5] {$n - 2$ units};
+    \foreach \y in {0,0.15,...,0.61} {
+        \draw (0.00, \y) -- (0.766, \y);
+        \draw (3.234, \y) -- (4.0, \y);
+    }
+    \node[above] at (2.0, 0) {$\cdots$};
+    \node[above] at (4.5, 0) {\Halb};
+    \draw[brace, decoration={raise=0.5ex}] (0, 0) -- (4, 0) node [position label, pos=0.5] {$n - 2$ beats};
     \end{tikzpicture}
-    \caption{Patterns of length $n$ units ending with a long syllable}
+    \caption{Rhythms of $n$ beats ending with a \Halb}
     \label{fig:end_with_long}
 \end{figure}
 
-Since a pattern of length $n$ where $n \geq 2$ must end either with a short syllable or with a long syllable, we come to the conclusion that $F_n = F_{n - 1} + F_{n - 2}$.
+Since a rhythm of length $n$ where $n \geq 2$ must end either with a \Vier\ or with \Halb, we come to the conclusion that $F_n = F_{n - 1} + F_{n - 2}$.
 
 In modern usage, instead of $F_0 = 1$ and $F_1 = 1$, we often say $F_1 = 1$ and $F_2 = 1$ to include $F_0 = 0$, which is consistent with $F_2 = F_0 + F_1$ \autocite[293]{gkp}. Combining both parts, we have:
 \[\begin{cases}
 F_0 = 0, F_1 = 1\\
 F_n = F_{n - 1} + F_{n - 2}, n \geq 2.
 \end{cases}\]
-These are the Fibonacci numbers defined in a recursive manner. The recurrence relation, however, only gives us local, indirect information. It is easy to compute $F_2$ from $F_0$ and $F_1$, but the calculation of $F_n$ for arbitrary (especially for large) values of $n$ would be tedious. Like for geometric sequences, we are interested in finding a closed-form expression for $F_n$.
+These are the Fibonacci numbers defined in a recursive manner. Proud of his findings, my younger self stopped here. The recurrence relation, however, only gives us local, indirect information. It is easy to compute $F_2$ from $F_0$ and $F_1$, but the calculation of $F_n$ for arbitrary (especially for large) values of $n$ would be tedious. Like for geometric sequences, we are interested in finding a closed-form expression for $F_n$.
 
 The discrete nature of the sequence $\{F_n\}$ is to an extent an obstacle. Instead, if we were to encode $\{F_n\}$ as a power series $f = F_0 + F_1 X + F_2 X^2 + \cdots$, many manipulations become available. This is called the generating function of $\{F_n\}$, which we denote with $f \longleftrightarrow \{F_n\}$. It will be shown later that, after some arithmetic, we can deduce $f = \dfrac{X}{1 - X - X^2}$. It is then possible to use the Maclaurin series to obtain $F_n = -\frac{1}{\sqrt{5}} \left(\frac{1 - \sqrt{5}}{2}\right)^n + \frac{1}{\sqrt{5}} \left(\frac{1 + \sqrt{5}}{2}\right)^n$.
 
-I initially encountered this kind of problem in computer science when I attempted to analyse the efficiency of a recursive algorithm. Indeed, recurrence relations appear in maths, computer science, and many other fields since they find use in problems from enumeration of structures to analysis of recursive algorithms. I then found that the discrete mathematics option of the IB HL maths textbook includes a treatment of second-order linear recurrence relations with constant coefficients. When it comes to non-homogeneous recurrence relations, however, a particular solution must be guessed. I wondered if there was any method to solve such recurrence relations without needing to make guesses, and I discovered generating functions as a powerful tool for solving linear recurrence relations.
+Years later, I faced this kind of problem again in computer science when I attempted to analyse the efficiency of a recursive algorithm. Indeed, recurrence relations appear in maths, computer science, and many other fields since they find uses in problems from the enumeration of structures (e.g., musical rhythms) to the analysis of recursive algorithms. I was then delighted to find that the discrete mathematics option of the IB HL maths syllabus includes a treatment of second-order linear recurrence relations with constant coefficients. When it comes to non-homogeneous recurrence relations, however, a particular solution must be guessed. I wondered if there was any method to solve such recurrence relations without needing to make guesses, and I discovered generating functions as a powerful tool for solving linear recurrence relations.
 
 This essay will focus on how generating functions can be used to solve linear recurrence relations with constant coefficients. At first, I wanted to focus more on the diverse applications of generating functions in combinatorics and probabilities: probability generating functions, for example. Nonetheless, a survey of literature revealed that most authors disregard the problem of convergence of the power series, and proceeded to add, multiply, and take derivatives of generating functions without knowing whether they are defined. Instead, a theory of formal power series is often known or presumed. As an inquirer, I became increasingly interested in this algebraic aspect of generating functions that asserts the validity of many operations on analytic functions without the concerns of convergence.
 
-The essay is organised as follows. Firstly, we define generating functions as formal power series in order to state the formulations of basic arithmetic operations, shifting, and derivation. In the process, we prove the validity of many properties which allows the derivation of commonly used generating functions. Then, we focus on solving linear recurrence relations with generating functions. We start by stating a theorem about solutions to homogeneous recurrence relations, which is then compared with the approach using generating functions to reveal many similarities. The connection between generating functions and recurrence relations is further shown when we consider non-homogeneous recurrence relations. Lastly, we conclude with discussions on the form and the name of generating functions.
+The essay is organised as follows. Firstly, we define generating functions as formal power series in order to state the formulations of basic arithmetic operations, shifting, and derivation. In the process, we prove the validity of many properties which allows the derivation of commonly used generating functions. Then, we focus on solving linear recurrence relations with generating functions. We start by stating a theorem about solutions to homogeneous recurrence relations, which is then compared with the approach using generating functions to reveal many similarities. The connection between generating functions and recurrence relations is further shown when we consider non-homogeneous recurrence relations. Lastly, we conclude with brief discussions on the form and the name of generating functions.
 
 
 
@@ -488,10 +495,8 @@ Now that we have rigorously proven that many known properties of functions (e.g.
 
 
 
-{\let\clearpage\relax\chapter{Solving Recurrence Relations}\label{ch:recurrence}}
+{\chapter{Solving Recurrence Relations}\label{ch:recurrence}}
 We will now move on to explore one of the most important applications of generating functions: solving recurrence relations. In particular, we will focus on a special class of recurrence relations --- that of linear recurrence relations with constant coefficients.
-
-\clearpage
 
 \section{Linear homogeneous recurrence relations}
 \subsection{Overview}
@@ -504,7 +509,7 @@ A sequence $\{a_n\}$ is called a \textbf{solution} of the recurrence relation if
 \begin{thm}\label{thm:solve-lin-homo-recur}
 Let $\{a_n\}$ be a sequence satisfying the lienar homogeneous recurrence relation
 \[a_n = c_{k - 1} a_{n - 1} + c_{k - 2} a_{n - 2} + \cdots + c_0 a_{n - k}, \quad n \geq k\]
-(for fixed $c_0, c_1, \dots, c_{k - 1} \in \C$). Consider the \textbf{characteristic polynomial} 
+for fixed $c_0, c_1, \dots, c_{k - 1} \in \C$. Consider the \textbf{characteristic polynomial} 
 \[P = X^k - c_{k - 1} X^{k - 1} - c_{k - 2} X^{k - 2} - \cdots - c_0.\]
 If $P = (X - \lambda_1)^{m_1 + 1} (X - \lambda_2)^{m_2 + 1} \cdots (X - \lambda_p)^{m_p + 1}$
 where $\lambda_1, \lambda_2, \dots, \lambda_p$ are distinct, then 
@@ -674,7 +679,7 @@ If $\{b_n\}$ is a particular solution to the non-homogeneous recurrence relation
     b_n = c_{k - 1}b_{n - 1} + c_{k - 2}b_{n - 2} + \cdots + c_0 b_{n - k} + g_n\\
     \end{cases}
 \]
-Hence $(a_n + b_n) = c_{k - 1}(a_{n - 1} + b_{n - 1}) + c_{k - 2}(a_{n - 2} + b_{n - 2}) + \cdots + c_0 (a_{n - k} + b_{n - k}) + g_n$.
+Hence, $(a_n + b_n) = c_{k - 1}(a_{n - 1} + b_{n - 1}) + c_{k - 2}(a_{n - 2} + b_{n - 2}) + \cdots + c_0 (a_{n - k} + b_{n - k}) + g_n$.
 \end{proof}
 As a consequence, we only need to find $\{a_n\}$ such that $\{a_n + b_n\}$ satisfies the initial conditions. On the other hand, the particular solution $\{b_n\}$ has to be guessed. Here is where generating functions come into play.
 
@@ -732,7 +737,7 @@ It suffices to find the generating function of $g_n$ by combining manipulations.
 
 
 
-{\let\clearpage\relax\chapter{Conclusion and Discussions}\label{ch:conclusion}}
+{\chapter{Conclusion and Discussions}\label{ch:conclusion}}
 % Synthesis of arguments: new connections/understanding, insights, big picture
 % Description, explanation, justification of conclusion
 % Reflective comments: confidence, more time, Q > A
@@ -745,7 +750,7 @@ So far, we have defined generating functions as formal power series, introduced 
 
 The gist of generating functions is to encode the sequence $\{a_n\}$ as a power series $a_0 + a_1 X + a_2 X^2 + \cdots$ to make many manipulations possible. For example, we defined multiplication of generating functions as the convolution of the two sequences, and have shown that it has the properties that we presumed with multiplication: it is associative, commutative, and distributive over addition; $0$ and $1$ respectively play the roles of the null element and the identity element; the product of any non-null generating functions is not null; lastly, each generating function with a non-zero constant term has a unique multiplicative inverse, which allowed us to define division and fractions. We can, of course, prove these properties with the notion of convolution only and without introducing generating functions; this comes at the expense of intuitiveness and succinctness, however, since the operations of shifting and taking derivatives would become unwieldy to employ using a sequence. This corresponds to Leibniz's remark \autocite[1]{zorich}: ``If the notation is adapted to the discoveries..., the work of thought is marvellously shortened.'' 
 
-Regarding the particular form of the series, $\sum_{n = 0}^\infty a_n X^n$ is in fact known as the \textbf{ordinary} generating functions. One of their most important uses is to reveal structural information about a sequence, such as solving linear recurrence relations. There exist other kinds of generating functions of other forms, each suited for different purposes. To list a few, the exponential generating functions $\sum_{n = 0}^\infty a_n \frac{X^n}{n!}$ find uses in combinatorial problems, while the series $\sum_{n = 0}^\infty a_n e^{-i\omega n}$ is favoured by engineers because of its relation to the discrete-time Fourier transform.
+Regarding the particular form of the series, $\sum_{n = 0}^\infty a_n X^n$ is in fact known as the \textbf{ordinary} generating function. One of its most important uses is to reveal structural information about a sequence, and its definition serves as an ansatz for solving recurrence relations (linear ones, particularly). There exist other kinds of generating functions of other forms, each suited for different purposes. To list a few, the exponential generating functions $\sum_{n = 0}^\infty a_n \frac{X^n}{n!}$ find uses in combinatorial problems, while the series $\sum_{n = 0}^\infty a_n e^{-i\omega n}$ is favoured by engineers because of its relation to the discrete-time Fourier transform.
 
 \section{Are ``generating functions'' functions?}
 Just like how polynomials are algebraic objects and analytic functions at the same time, generating functions --- generalisation of polynomials to infinite degrees --- are formal power series and complex-valued functions at the same time. Proper treatment of issues of convergence that arise when we consider generating functions as functions requires knowledge far beyond the scope of this essay; instead, we should simply note that complex analysis allows us to obtain additional information about the corresponding sequence (e.g., asymptotic growth rates, which computer scientists are interested in). 
@@ -754,11 +759,11 @@ Within the scope of this essay, generating functions are treated as formal power
 
 For me, it is this duality connecting discrete mathematics and continuous analysis that render generating functions powerful and charming. After all, as Poincaré remarked \autocite[1]{zorich}, ``Mathematics is the art of calling different things by the same name.''
 
+\nocite{*}
 {\let\clearpage\relax
 \printbibliography[keyword={consulted}, title={Further Reading}]
-\nocite{*}
-\printbibliography[keyword={cited}, title={Works Cited}]
 }
+\printbibliography[keyword={cited}, title={Works Cited}]
 
 \thispagestyle{empty}
 \end{document}
